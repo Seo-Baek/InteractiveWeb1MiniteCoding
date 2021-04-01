@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Object</h1>
+	
+	<script>
+		/* const person = {};
+		// 속성, property
+		person.name = '일분이';
+		person.age = 10;
+		person.introduce = function(){
+			console.log(`안녕하세요? 저는 ${person.name}이고 나이는 ${person.age}살이에요.`);
+		}
+		// 메소드, method
+		person.introduce(); */
+		
+		/*const person = {
+				nickname : '일분이',
+				age : 10,
+				introduce : function(){
+					console.log(this);
+					console.log('안녕하세요? 저는 '+this.nickname+'이고 나이는 '+ this.age+'살이에요.');					
+					console.log(`안녕하세요? 저는 ${person.nickname}이고 나이는 ${person.age}살이에요.`);					
+				}
+		}
+		// 화살표 함수에서 this는 window를 가리킴. 
+		// 화살표 함수는 언제나 상위 스코프를 this로 가리킴(Lexical this)
+		// 그래서 call,apply,bind 메소드를 사용하여 this를 변경할 수 없음
+		// 번외:생성자 함수와 객체 메소드를 제외한 모든 함수 내부의 this는 전역객체(함수 만들면 global객체에 저장되니까 글겠지..?)
+		const personi = {
+				nickname : '이분이',
+				age : 8,
+				introduce : () => {
+					console.log(this);
+					console.log(`안녕하세요? 저는 ${personi.nickname}이고 나이는 ${personi.age}살이에요.`);					
+					console.log(`안녕하세요? 저는 ${this.nickname}이고 나이는 ${this.age}살이에요.`);					
+				}
+				//introduce(){ console.log(~~~) } 
+				//== introcude: function(){console.log(~~~)} 축약하고 싶으면 ES6는 이것도 가능!
+				//프로토 타입에 메소드로 화살표 함수를 할당할 때도 같은 문제 발생 
+		}
+		person.introduce();
+		personi.introduce(); 1000명이면 1000번 쓰게? 비합리적!*/
+				
+		//생성자 (Constructor)
+		const Person = function (nickname, age){ // == function Person(nickname,age)
+			this.nickname = nickname;
+			this.age = age;
+			/*this.introduce = () => {
+				console.log('안녕하세요? 저는 '+this.nickname+'이고 나이는 '+ this.age+'살이에요.');	
+				//생성자 함수 안의 this는 객체이다.
+				console.log(`안녕하세요? 저는 ${this.nickname}이고 나이는 ${this.age}살이에요.`);					
+				console.log(`안녕하세요? 저는 ${nickname}이고 나이는 ${age}살이에요.`);					
+			};*/
+		}
+		
+		// 화살표 함수로 생성자 함수를 만들 경우 property가 없는 것으로 나옴!
+		//const Person3 = (nickname,age) => {console.log(`안녕하세요? 저는 ${nickname}이고 나이는 ${age}살이에요.`);} 	
+		//console.log(Person3.hasOwnProperty('prototype'))  false
+		/* TypeError : Person3 is not a constructor 속성에 포함이 안되니까...
+		const person3 = new Person3('삼분이',15);
+		*/
+		
+		/* 화살표 함수는 프로토타입 작성 시에도 문제가 생긴다.*/
+		Person.prototype.introduce = function(){
+			console.log(`안녕하세요? 저는 ${this.nickname}이고 나이는 ${this.age}살이에요.`);					
+		} //this = 메소드를 호출하는 객체
+		/*Person.prototype.introduce = () => {
+			console.log(`안녕하세요? 저는 ${this.nickname}이고 나이는 ${this.age}살이에요.`);					
+		} //this = window객체
+		*/		
+		
+		
+		// 인스턴스(만들어진 객체 instance)
+		const person1 = new Person('일분이', 10);
+		const person2 = new Person('이분이', 8);
+		
+		person1.introduce();
+		person2.introduce();
+		
+	</script>
+</body>
+</html>
