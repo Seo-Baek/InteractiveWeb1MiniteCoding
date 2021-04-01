@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="./resources/css/reset.css">
+<style>
+	.stage{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100vw;
+		height: 100vh;
+		background: #333;
+		/*perspective : 800px; 시점따라 회전율이 달라보인다*/
+	}
+	
+	.door {
+		position: relative;
+		width: 100px;
+		height: 150px;
+	}
+	
+	.door-back{
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width : 100%;
+		height: 100%;
+		background: black;
+	}
+	
+	.ilbuni {
+		position: absolute;
+		left:0;
+		bottom:0;
+		width : 100px;
+		height : 100px;
+		background-repeat: no-repeat;
+		background-position: 50% 100%;/*center bottom*/
+		background-size: contain;
+		/*transform: translate3d(100px, 0, 0);px가능*/
+		/*transform: translate3d(50%, 0, 0);this의 크기를 100%로 잡음*/
+		transform: translate3d(100%, 0, 0);
+		transition: 0.5s 0.5s;
+	}
+	
+	.door-opened .ilbuni{
+		transform: translate3d(0, 0, 0);
+	}
+	
+	.door:nth-child(1) .ilbuni{
+		background-image: url(./resources/images/ilbuni_0.png);
+	}
+	.door:nth-child(2) .ilbuni{
+		background-image: url(./resources/images/ilbuni_1.png);
+	}
+	.door:nth-child(3) .ilbuni{
+		background-image: url(./resources/images/ilbuni_2.png);
+	}
+	
+	.door-body {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width : 100%;
+		height: 100%;
+		background: black;
+		transition: 0.5s;
+		transform-origin : left;
+	}
+	
+	.door-opened .door-body{
+		transform : perspective(800px) rotateY(-110deg);
+	}
+	
+	.door:nth-child(1) .door-body{
+		background: rgba(255,0,0,0.8);
+	}
+	.door:nth-child(2) .door-body{
+		background: rgba(0,255,0,0.8);
+	}
+	.door:nth-child(3) .door-body{
+		background: rgba(0,0,255,0.8);
+	}
+	
+</style>
+</head>
+<body>
+	<div class="stage">
+		<div class="door">
+			<div class="door-back">
+				<div class="ilbuni"></div>
+			</div>
+			<div class="door-body"></div>
+		</div>
+		<div class="door">
+			<div class="door-back">
+				<div class="ilbuni"></div>
+			</div>
+			<div class="door-body"></div>
+		</div>
+		<div class="door">
+			<div class="door-back">
+				<div class="ilbuni"></div>
+			</div>
+			<div class="door-body"></div>
+		</div>
+	</div>
+	<script>
+		(function(){
+			const stageElem = document.querySelector('.stage');
+			//현재 활성화된 아이템을 저장
+			let currentItem;
+			
+			//문열기
+			function activate(elem){
+				elem.classList.add('door-opened');
+				currentItem = elem.parentNode;
+			}
+			
+			//문닫기
+			function inactivate(currentItem){
+				currentItem.classList.remove('door-opened');
+			}
+			
+			function doorHandler(e){
+				const targetElem = e.target;
+				
+				/*기능마다 함수를 작성하여 사용하자(기능분리) Refactoring*/
+				if(currentItem){
+					inactivate(currentItem);
+				}
+				
+				//DOM에 직접 접근하는 것은 성능에 좋지 않음
+				//클래스를 구체적으로 이용하는 것은 Canvas 등을 사용할 때 먹히지 않음
+				/*const currentItem = document.querySelector('.door-opened');
+				if(currentItem){
+					currentItem.classList.remove('door-opened');
+				}*/
+				
+				if(targetElem.classList.contains('door-body')){
+					activate(targetElem.parentNode);
+				}
+			}
+			
+			stageElem.addEventListener('click', doorHandler);
+			let openedDoor = document.querySelector('.door:first-child');
+			/*let openedDoor = document.querySelector('.door:nth-child(2)');*/
+			activate(openedDoor);
+		})();
+	</script>
+</body>
+</html>
