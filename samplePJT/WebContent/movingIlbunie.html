@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="./resources/css/reset.css">
+    <style>
+        .stage {
+            overflow: hidden;
+            position: relative;
+            width: 100vw;
+            height: 75vw;
+            background: #fff000;
+        }
+        
+        @keyframes moving {
+        	from {
+        		transform : translateX(0);
+        	}
+        	to {
+        		transform : translateX(90vw);
+        	}
+        }
+        
+        .ilbuni {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            /* div 등 감싸고 있는 놈에 이미지가 잘리지 않고 꽉 차게 해주는 것 cover는 다차게 해서 잘릴 수 있는 것*/
+            background-size: contain;
+            animation : moving 3s infinite alternate;
+        }
+        .ilbuni:nth-of-type(1){
+        	left: 5%;
+            bottom: 5%;
+        	background-image: url('./resources/images/ilbuni_0.png');
+        	animation-duration : 2s;
+        }
+        .ilbuni:nth-of-type(2){
+        	left: 10%;
+            bottom: 3%;
+        	background-image: url('./resources/images/ilbuni_1.png');
+        	animation-duration : 3s;
+        }
+        .ilbuni:nth-of-type(3){
+        	left: 7%;
+            bottom: 10%;
+        	background-image: url('./resources/images/ilbuni_2.png');
+        	animation-duration : 4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="stage">
+        <div class="ilbuni a"></div>
+        <div class="ilbuni b"></div>
+        <div class="ilbuni c"></div>
+    </div>
+
+    <script>
+        (function(){
+        	/*
+        		이벤트 위임
+        		부모가 자식내미에게 이벤트를 위임한다.
+        	*/
+        	
+        	const ilbuniGrp = document.querySelectorAll('.ilbuni');
+        	const stage = document.querySelector('.stage');
+        	
+        	function clickHandler(){
+        		//stage.removeChild(this);
+        		//this.parentNode.removeChild(this);
+        		this.parentNode.removeChild(e.currentTarget);
+        	}
+        	Object.keys(ilbuniGrp).map((key,idx) => {
+        		ilbuniGrp[key].addEventListener('click',clickHandler);
+        	});
+        })();
+    </script>
+</body>
+</html>
