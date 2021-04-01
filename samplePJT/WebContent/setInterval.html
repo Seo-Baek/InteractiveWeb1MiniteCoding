@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.btn{
+		font-size: 2rem;
+	}
+</style>
+</head>
+<body>
+	<button class="btn">취소</button>
+	
+	<script>
+		let timeId;
+		const btn = document.querySelector('.btn');
+		
+		function sample(){
+			console.log('sample!');
+		}
+		
+		timeId = setInterval(sample,1000/60);
+		btn.addEventListener('click',function(){
+			clearInterval(timeId);
+		});
+	</script>
+</body>
+</html>
