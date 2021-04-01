@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Insert title here</title>
+<style>
+	img {
+        max-width: 100%;
+    }
+    .content {
+        /* viewport height */
+        height: 1000vh;
+        padding: 20%;
+        background: yellowgreen;
+    }
+    .output {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        font-size: 2rem;
+        font-weight: 200;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    .ilbuni {
+        width: 100px;
+        margin: 20px auto;
+        transition: 1s;
+    }
+    .ilbuni.zoom {
+        transform: scale(2);
+    }
+    </style>
+</head>
+<body>
+    <div class="output">output</div>
+    <div class="content">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo culpa id ratione alias illum aliquam accusamus deleniti dolores dignissimos, temporibus iste perspiciatis voluptatem repudiandae debitis similique fugiat dolor, doloremque quos mollitia repellendus iure exercitationem molestiae ab! Veritatis harum voluptate enim ducimus amet vitae veniam dignissimos possimus facilis eaque minus similique, vel commodi sed? Sequi distinctio debitis numquam, necessitatibus officiis quam, sed rerum id culpa totam provident repellendus iste, laborum maiores, consequuntur fugiat voluptatibus? Ad, architecto. Ipsam minus quis, ea quas, ex impedit quia distinctio commodi expedita laudantium dolores cum? Quisquam, odit, laboriosam consequuntur expedita optio laudantium. Optio laboriosam, repellendus laborum.
+        </p>
+        <figure class="ilbuni">
+            <img src="./resources/images/ilbuni_0.png" alt="일분이">
+        </figure>
+    </div>
+	<script>
+		(function(){
+			const outputElem = document.querySelector('.output');
+			const ilbuniElem = document.querySelector('.ilbuni');
+			
+			function  showLocVal(){
+				let posY = ilbuniElem.getBoundingClientRect().top
+				outputElem.innerHTML = posY;
+				
+				console.log(window.innerHeight);
+				
+				if(posY < window.innerHeight * 0.2){
+					ilbuniElem.classList.add('zoom');
+				} else {
+					ilbuniElem.classList.remove('zoom');
+				}
+			}
+			
+			window.addEventListener('scroll',function(){
+				//outputElem.innerHTML = window.pageYOffset;
+				
+				// .offsetTop => 처음 위치만 가져오는 것
+				//outputElem.innerHTML = ilbuniElem.offsetTop;
+				
+				// scroll할 때마다 위치 정보가 변경 됨
+				/*console.log(ilbuniElem.getBoundingClientRect())
+				DOMRect {x: 563.5, y: 375.1875, width: 100, height: 145.921875, top: 375.1875, …}
+						bottom: 521.109375
+						height: 145.921875
+						left: 563.5
+						right: 663.5
+						top: 375.1875
+						width: 100
+						x: 563.5
+						y: 375.1875
+				IE 는 x,y는 지원하지 않음
+				*/
+				
+				showLocVal();
+			},false); // eventbubbling default는 false
+		})();
+	</script>
+</body>
+</html>
