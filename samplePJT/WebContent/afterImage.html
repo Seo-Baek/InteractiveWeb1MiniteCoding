@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>Interactive Web</title><meta charset="UTF-8">
+ <link rel="stylesheet" href="./resources/css/reset.css">
+ <style>
+ 	body {
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+ 	}
+ 	.menu {
+ 		display : flex;
+ 		margin-top : -10vh;
+ 		padding : 2em;
+ 		border-radius : 20px;
+ 		background: #eee;
+ 	}
+ 	.menu-btn{
+ 		display : inline-flex;
+ 		align-items: center;
+ 		margin : 0 1ex;
+ 		padding : 0.5em 1em 0.5em 0.5em;
+ 		border : 5px solid white;
+ 		border-radius : 20px;
+ 		outline : 0;
+ 		font : 900 1.2rem NotoSans;
+ 		background: linear-gradient(0deg,rgba(222,210,0,1), rgba(255,249,9,1));
+ 		height : 5.3em;
+ 	}
+ 	.icon {
+ 		width : 60px;
+ 		height:auto;
+ 		/*pointer-events : none; 이벤트를 발생시키지 못하게 하는 css 문법!
+ 							 	 다만 자식 노드도 이 설정을 안해도 클릭 이벤트 안됨*/
+ 	}
+ 	.btn-label {
+ 		text-shadow : rgba(255,255,255,1) 0 1px 0;
+ 		/*pointer-events : none;*/
+ 	}
+ </style>
+</head>
+<body>
+	<div class="menu">
+		<!--<button class="menu-btn" data-value="1">
+			<img class="icon" src="./resources/images/ilbuni_1.png" alt="" />
+			<span class="btn-label">일분이 1</span>
+		</button>
+		<button class="menu-btn" data-value="2">
+			<img class="icon" src="./resources/images/ilbuni_2.png" alt="" />
+			<span class="btn-label">일분이 2</span>
+		</button>
+		<button class="menu-btn" data-value="3">
+			<img class="icon" src="./resources/images/ilbuni_3.png" alt="" />
+			<span class="btn-label">일분이 3</span>
+		</button>-->
+	</div>
+	<script>
+	
+		const menu = document.querySelector('.menu');
+		
+		function clickHandler(event){
+			//console.log(event.target.getAttribute('data-value'));
+			//.dataset => data 속성 이름 중 
+			//            data- 뒤의 문자열을 이름으로 하는 객체를 가진 배열 
+			//console.log(event.target.dataset.value);
+			let elem = event.target;
+			while(!elem.classList.contains('menu-btn')){
+				elem = elem.parentNode;
+				if(elem.nodeName == 'BODY'){
+					elem = null;
+					return;
+				}
+			}
+			
+			console.log(elem.dataset.value);
+		}
+		
+		menu.addEventListener('click',clickHandler);
+		
+		window.addEventListener('click', () => {
+			let htmlStr = '';
+			htmlStr += '	<button class="menu-btn" data-value="1">';
+			htmlStr += '		<img class="icon" src="./resources/images/ilbuni_1.png" alt="" />';
+			htmlStr += '		<span class="btn-label">일분이 1</span>';
+			htmlStr += '	</button>';
+			htmlStr += '	<button class="menu-btn" data-value="2">';
+			htmlStr += '		<img class="icon" src="./resources/images/ilbuni_2.png" alt="" />';
+			htmlStr += '		<span class="btn-label">일분이 2</span>';
+			htmlStr += '	</button>';
+			htmlStr += '	<button class="menu-btn" data-value="3">';
+			htmlStr += '		<img class="icon" src="./resources/images/ilbuni_3.png" alt="" />';
+			htmlStr += '		<span class="btn-label">일분이 3</span>';
+			htmlStr += '	</button>';
+			menu.innerHTML = htmlStr;
+		});
+	
+		/*성능에 좋지 않다
+		const btns = document.querySelectorAll('.menu-btn');
+
+		function clickBtnHandler(){
+			console.log(this);
+		}
+		
+		for(let i = 0; i < btns.length; i++){
+			btns[i].addEventListener('click',clickBtnHandler);
+		}
+		*/
+	</script>
+</body>
+</html>

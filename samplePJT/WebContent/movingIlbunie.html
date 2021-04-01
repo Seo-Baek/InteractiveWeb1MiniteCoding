@@ -72,6 +72,13 @@
         	const ilbuniGrp = document.querySelectorAll('.ilbuni');
         	const stage = document.querySelector('.stage');
         	
+        	function clickHandler(e){
+        		if(e.target.classList.contains('ilbuni')) stage.removeChild(e.target);
+        	}
+        	
+        	stage.addEventListener('click',clickHandler)
+        	
+        	/* 자식내미 각각에게 이벤트를 준다.
         	function clickHandler(){
         		//stage.removeChild(this);
         		//this.parentNode.removeChild(this);
@@ -79,7 +86,7 @@
         	}
         	Object.keys(ilbuniGrp).map((key,idx) => {
         		ilbuniGrp[key].addEventListener('click',clickHandler);
-        	});
+        	});*/
         })();
     </script>
 </body>
