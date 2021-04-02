@@ -9,13 +9,13 @@
 <link rel="stylesheet" href="./resources/css/style.css">
 </head>
 <body>
-	<!-- <div class="progress-bar-con">
+	<div class="progress-bar-con">
 	    <div class="progress-bar"></div>
 	</div>
 	<div class="select-character">
 	    <button class="select-character-btn select-character-btn-ilbuni" data-char="ilbuni"></button>
 	    <button class="select-character-btn select-character-btn-ragirl" data-char="ragirl"></button>
-	</div> -->
+	</div>
 	
 	<div class="world">
 	    <div class="stage">
@@ -47,11 +47,19 @@
 	        <!--// house -->
 	
 	        <!-- 캐릭터 놓이는 곳 -->
-	
 	    </div>
 	    <!--// stage -->
 	</div>
 	<!--// world -->
+	<script>
+		// 새로고침 시 스크롤 초기화 안되어서 붙임 
+		window.onload = function(){
+			setTimeout(function(){
+				scrollTo(0,0);
+			},100);
+		};
+	</script>
+	<script src="./resources/js/Character.js"></script>
 	<script src="./resources/js/wall3d.js"></script>
 </body>
 </html>
